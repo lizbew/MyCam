@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyCam</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="record">Record</string>
+    <string name="capture">Capture</string>
+    <string name="stop">Stop</string>
+    <string name="open_camera_app">Open Camera App</string>
+    <string name="open_video_app">Open Video App</string>
+    <string name="title_activity_camera_info">Camera Info</string>
+</resources>
