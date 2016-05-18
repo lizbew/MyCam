@@ -1,6 +1,8 @@
 package com.viifly.mycam;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
@@ -170,12 +172,29 @@ public class CameraActivity extends AppCompatActivity {
     };
 
     private void notifyCaptureImgPath(String imgPath) {
-        int notificationId = 001;
+        int notificationId = 101;
+
+        Intent resultIntent = new Intent(this, ImageViewActivity.class);
+        // Sets the Activity to start in a new, empty task
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        resultIntent.putExtra(ImageViewActivity.INTENT_PARAM_IMG_PATH, imgPath);
+
+        // Because clicking the notification opens a new ("special") activity, there's
+        // no need to create an artificial back stack.
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_action_notify)
                 .setContentTitle("MyCam Image captured")
-                .setContentText("Image Path: " + imgPath);
+                .setContentText("Image Path: " + imgPath)
+                .setContentIntent(resultPendingIntent);
         NotificationManager mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(notificationId, builder.build());

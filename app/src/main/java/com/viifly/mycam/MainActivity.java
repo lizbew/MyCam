@@ -3,12 +3,15 @@ package com.viifly.mycam;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +22,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        displayScreenSize();
+    }
+
+    public void displayScreenSize() {
+        TextView textView = (TextView)findViewById(R.id.screenSizeTextView);
+
+        //WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        //Display display = wm.getDefaultDisplay();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        textView.setText(String.format("Screen size: %dx%d", size.x, size.y));
     }
 
     public void onClickOpenCamera(View v) {

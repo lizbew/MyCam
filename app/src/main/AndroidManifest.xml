@@ -35,7 +35,12 @@
         <activity
             android:name=".CameraInfoActivity"
             android:label="@string/title_activity_camera_info"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ImageViewActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="" />
     </application>
 
 </manifest>
