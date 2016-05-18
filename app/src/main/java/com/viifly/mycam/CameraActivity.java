@@ -1,11 +1,13 @@
 package com.viifly.mycam;
 
+import android.app.NotificationManager;
 import android.content.res.Resources;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -162,10 +164,22 @@ public class CameraActivity extends AppCompatActivity {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
             }
             showToastText("Picture Path: " + pictureFile.toString());
+            notifyCaptureImgPath(pictureFile.toString());
             mPreview.triggerPreview();
         }
     };
 
+    private void notifyCaptureImgPath(String imgPath) {
+        int notificationId = 001;
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_action_notify)
+                .setContentTitle("MyCam Image captured")
+                .setContentText("Image Path: " + imgPath);
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(notificationId, builder.build());
+    }
 
 
     private boolean prepareVideoRecorder() {
